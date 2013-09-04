@@ -1922,6 +1922,8 @@ case 2:
         
             $thisS = $this->variable($s[$o]);
         
+		
+        
     
 break;
 case 3:
@@ -1935,17 +1937,23 @@ case 5:
 	    
             $thisS = $s[$o] * 1;
         
+
+		
     
 break;
 case 6:
         
 	        $thisS = substr($s[$o], 1, -1);
         
+
+		
     
 break;
 case 7:
         
             $thisS = $s[$o-2] . '' . $s[$o];
+        
+        
         
     
 break;
@@ -1953,6 +1961,8 @@ case 8:
 	    
             $thisS = $s[$o-2] == $s[$o];
         
+
+		
     
 break;
 case 9:
@@ -1963,6 +1973,8 @@ case 9:
 			   $thisS = $s[$o-2] . $s[$o];
 			}
         
+
+		
     
 break;
 case 10:
@@ -1972,26 +1984,35 @@ case 11:
         
             $thisS = ($s[$o-3] * 1) <= ($s[$o] * 1);
         
+        
+        
     
 break;
 case 12:
         
             $thisS = ($s[$o-3] * 1) >= ($s[$o] * 1);
         
+        
+        
     
 break;
 case 13:
         $thisS = ($s[$o-3]) != ($s[$o]);
 
-            
+        
+    
 break;
 case 14:
         $thisS = $s[$o-2] != $s[$o];
+        
+        
     
 break;
 case 15:
 	    
 		    $thisS = ($s[$o-2] * 1) > ($s[$o] * 1);
+        
+        
         
     
 break;
@@ -1999,11 +2020,15 @@ case 16:
         
             $thisS = ($s[$o-2] * 1) < ($s[$o] * 1);
         
+        
+        
     
 break;
 case 17:
         
             $thisS = ($s[$o-2] * 1) - ($s[$o] * 1);
+        
+        
         
     
 break;
@@ -2011,11 +2036,15 @@ case 18:
 	    
             $thisS = ($s[$o-2] * 1) * ($s[$o] * 1);
         
+        
+        
     
 break;
 case 19:
 	    
             $thisS = ($s[$o-2] * 1) / ($s[$o] * 1);
+        
+        
         
     
 break;
@@ -2023,19 +2052,25 @@ case 20:
         
             $thisS = pow(($s[$o-2] * 1), ($s[$o] * 1));
         
+        
+        
     
 break;
 case 21:
 		
-            $thisS = $s[$o-1] * 1;
-        
+		    $thisS = $s[$o-1] * 1;
 		
+		
+		
+    
 break;
 case 22:
 	    
             $thisS = $s[$o-1] * 1;
         
-		
+        
+        
+    
 break;
 case 23:/*$thisS = Math.E;*/;
 break;
@@ -2043,11 +2078,15 @@ case 24:
 	    
 		    $thisS = $this->callFunction($s[$o-2]);
         
+        
+        
     
 break;
 case 25:
 	    
             $thisS = $this->callFunction($s[$o-3], $s[$o-1]);
+        
+        
         
     
 break;
@@ -2055,11 +2094,15 @@ case 29:
 	    
             $thisS = $this->fixedCellValue($s[$o]);
         
+        
+        
     
 break;
 case 30:
 	    
 	        $thisS = $this->fixedCellRangeValue($s[$o-2], $s[$o]);
+        
+        
         
     
 break;
@@ -2067,11 +2110,15 @@ case 31:
 	    
             $thisS = $this->cellValue($s[$o]);
         
+        
+        
     
 break;
 case 32:
 	    
             $thisS = $this->cellRangeValue($s[$o-2], $s[$o]);
+        
+        
         
     
 break;
@@ -2079,17 +2126,23 @@ case 33:
 	    
             $thisS = $this->remoteCellValue($s[$o-2], $s[$o]);
         
+        
+        
     
 break;
 case 34:
 	    
             $thisS = $this->remoteCellRangeValue($s[$o-4], $s[$o-2], $s[$o]);
         
+        
+        
     
 break;
 case 35:
 	    
             $thisS = array($s[$o]);
+        
+        
         
     
 break;
@@ -2098,6 +2151,9 @@ case 36:
             $s[$o-2][] = $s[$o];
             $thisS = $s[$o-2];
         
+        
+        
+
     
 break;
 case 37:
@@ -2105,10 +2161,12 @@ case 37:
 			$s[$o-2][] = $s[$o];
 			$thisS = $s[$o-2];
         
+        
+        
     
 break;
 case 38:
-        $thisS = [$s[$o]];
+	    
     
 break;
 case 39:
@@ -2116,28 +2174,41 @@ case 39:
             $thisS = (is_array($s[$o-2]) ? $s[$o-2] : array());
             $thisS[] = $s[$o];
         
+        
+        
     
 break;
 case 40:
-        $thisS = $s[$o];
+        
     
 break;
 case 41:
         
             $thisS = $s[$o-2] . '.' . $s[$o];
         
+        
+        
     
 break;
 case 42:
-        $thisS = $s[$o-1] * 0.01;
+        
+        
     
 break;
 case 43:
-        $thisS = $s[$o-2] + $s[$o-1] + $s[$o];
+        
+            $thisS = $s[$o-2] . $s[$o-1] . $s[$o];
+        
+
+        
     
 break;
 case 44:
-        $thisS = $s[$o-2] + $s[$o-1] + $s[$o];
+        
+            $thisS = $s[$o-2] . $s[$o-1] . $s[$o];
+        
+
+        
     
 break;
 }
@@ -2557,18 +2628,31 @@ break;
 case 5:return 8;
 break;
 case 6:
-	if (yy->obj.type == 'cell') return 30; if ($this->type == 'cell') return 30;
-	 return 34;
+	
+		if ($this->type == 'cell') return 30;
+		return 34;
+	
+
+	
 
 break;
 case 7:
-	if (yy->obj.type == 'cell') return 27; if ($this->type == 'cell') return 27;
-     return 34;
+	
+		if ($this->type == 'cell') return 27;
+		return 34;
+	
+
+	
 
 break;
 case 8:
-	if (yy->obj.type == 'cell') return 29; if ($this->type == 'cell') return 29;
-     return 34;
+	
+		if ($this->type == 'cell') return 29;
+		return 34;
+	
+
+	
+	
 
 break;
 case 9:return 24;

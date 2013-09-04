@@ -93,6 +93,10 @@ case 2:
         /*php
             this.$ = this->variable($$[$0]);
         */
+		
+        /*cs
+            this.$ = $$[$0];
+        */
     
 break;
 case 3:
@@ -115,6 +119,11 @@ case 5:
         /*php
             this.$ = $$[$0] * 1;
         */
+
+		/*cs
+			$$[$0].ToDouble();
+			this.$ = $$[$0];
+		*/
     
 break;
 case 6:
@@ -123,6 +132,11 @@ case 6:
         /*php
 	        this.$ = substr($$[$0], 1, -1);
         */
+
+		/*cs
+			$$[$0].ToString();
+			this.$ = $$[$0];
+		*/
     
 break;
 case 7:
@@ -132,6 +146,11 @@ case 7:
         /*php
             this.$ = $$[$0-2] . '' . $$[$0];
         */
+        
+        /*cs
+            $$[$0-2].Set($$[$0-2].Text + $$[$0].Text);
+            this.$ = $$[$0-2];
+	    */
     
 break;
 case 8:
@@ -141,6 +160,11 @@ case 8:
         /*php
             this.$ = $$[$0-2] == $$[$0];
         */
+
+		/*cs
+			$$[$0-2].Set($$[$0-2].Text == $$[$0].Text);
+			this.$ = $$[$0-2];
+		*/
     
 break;
 case 9:
@@ -154,6 +178,18 @@ case 9:
 			   this.$ = $$[$0-2] . $$[$0];
 			}
         */
+
+		/*cs
+			if ($$[$0-2].IsNumeric()) {
+				$$[$0-2].ToDouble();
+				$$[$0-2].Add($$[$0]);
+				this.$ = $$[$0-2];
+			} else {
+				$$[$0-2].ToString();
+				$$[$0-2].Concat($$[$0]);
+				this.$ = $$[$0-2];
+			}
+		*/
     
 break;
 case 10:
@@ -169,6 +205,11 @@ case 11:
         /*php
             this.$ = ($$[$0-3] * 1) <= ($$[$0] * 1);
         */
+        
+        /*cs
+            $$[$0-3].Set($$[$0-3].ToDouble() <= $$[$0].ToDouble());
+            this.$ = $$[$0-3];
+        */
     
 break;
 case 12:
@@ -177,6 +218,11 @@ case 12:
 
         /*php
             this.$ = ($$[$0-3] * 1) >= ($$[$0] * 1);
+        */
+        
+        /*cs
+            $$[$0-3].Set($$[$0-3].ToDouble() >= $$[$0].ToDouble());
+            this.$ = $$[$0-3];
         */
     
 break;
@@ -187,11 +233,20 @@ case 13:
 			if (isNaN(this.$)) {
 			    this.$ = 0;
 			}
-        //
+        
+        /*cs
+            $$[$0-3].Set($$[$0-3].Text != $$[$0].Text);
+            this.$ = $$[$0-3];
+        */
     
 break;
 case 14:
         this.$ = $$[$0-2] != $$[$0];
+        
+        /*cs
+            $$[$0-2].Set($$[$0-2].Text != $$[$0].Text);
+            this.$ = $$[$0-2];
+        */
     
 break;
 case 15:
@@ -200,6 +255,11 @@ case 15:
 
 		/*php
 		    this.$ = ($$[$0-2] * 1) > ($$[$0] * 1);
+        */
+        
+        /*cs
+            $$[$0-2].Set($$[$0-2].ToDouble() > $$[$0].ToDouble());
+            this.$ = $$[$0-2];
         */
     
 break;
@@ -210,6 +270,11 @@ case 16:
         /*php
             this.$ = ($$[$0-2] * 1) < ($$[$0] * 1);
         */
+        
+        /*cs
+            $$[$0-2].Set($$[$0-2].ToDouble() < $$[$0].ToDouble());
+            this.$ = $$[$0-2];
+        */
     
 break;
 case 17:
@@ -218,6 +283,11 @@ case 17:
 
         /*php
             this.$ = ($$[$0-2] * 1) - ($$[$0] * 1);
+        */
+        
+        /*cs
+            $$[$0-2].Set($$[$0-2].ToDouble() - $$[$0].ToDouble());
+            this.$ = $$[$0-2];
         */
     
 break;
@@ -228,6 +298,11 @@ case 18:
         /*php
             this.$ = ($$[$0-2] * 1) * ($$[$0] * 1);
         */
+        
+        /*cs
+            $$[$0-2].Set($$[$0-2].ToDouble() * $$[$0].ToDouble());
+            this.$ = $$[$0-2];
+        */
     
 break;
 case 19:
@@ -236,6 +311,11 @@ case 19:
 
         /*php
             this.$ = ($$[$0-2] * 1) / ($$[$0] * 1);
+        */
+        
+        /*cs
+            $$[$0-2].Set($$[$0-2].ToDouble() / $$[$0].ToDouble());
+            this.$ = $$[$0-2];
         */
     
 break;
@@ -249,6 +329,11 @@ case 20:
         /*php
             this.$ = pow(($$[$0-2] * 1), ($$[$0] * 1));
         */
+        
+        /*cs
+            $$[$0-2].Set(Math.Pow($$[$0-2].ToDouble(), $$[$0].ToDouble()));
+            this.$ = $$[$0-2];
+        */
     
 break;
 case 21:
@@ -259,10 +344,15 @@ case 21:
 			    this.$ = 0;
 			}
 
-        /*php
-            this.$ = $$[$0-1] * 1;
-        */
+		/*php
+		    this.$ = $$[$0-1] * 1;
+		*/
 		
+		/*cs
+			$$[$0].Set(-$$[$0].ToDouble());
+			this.$ = $$[$0];
+		*/
+    
 break;
 case 22:
 	    //js
@@ -275,7 +365,12 @@ case 22:
         /*php
             this.$ = $$[$0-1] * 1;
         */
-		
+        
+        /*cs
+            $$[$0].Set($$[$0].ToDouble());
+            this.$ = $$[$0];
+        */
+    
 break;
 case 23:/*this.$ = Math.E;*/;
 break;
@@ -286,6 +381,10 @@ case 24:
 		/*php
 		    this.$ = this->callFunction($$[$0-2]);
         */
+        
+        /*cs
+            this.$ = Functions.Call($$[$0-2].Text);
+        */
     
 break;
 case 25:
@@ -294,6 +393,10 @@ case 25:
 
         /*php
             this.$ = this->callFunction($$[$0-3], $$[$0-1]);
+        */
+        
+        /*cs
+            this.$ = Functions.Call($$[$0-3].Text, $$[$0-1]);
         */
     
 break;
@@ -304,6 +407,10 @@ case 29:
         /*php
             this.$ = this->fixedCellValue($$[$0]);
         */
+        
+        /*cs
+            this.$ = Spreadsheet.CellValue(Location.ParseFixed($$[$0].Text));
+        */
     
 break;
 case 30:
@@ -313,6 +420,10 @@ case 30:
 	    /*php
 	        this.$ = this->fixedCellRangeValue($$[$0-2], $$[$0]);
         */
+        
+        /*cs
+            this.$ = Spreadsheet.CellValue(Location.ParseFixed($$[$0-2].Text), Location.ParseFixed($$[$0].Text));
+        */
     
 break;
 case 31:
@@ -320,6 +431,10 @@ case 31:
 			this.$ = yy.handler.cellValue.call(yy.obj, $$[$0]);
         /*php
             this.$ = this->cellValue($$[$0]);
+        */
+        
+        /*cs
+            this.$ = Spreadsheet.CellValue(Location.Parse($$[$0].Text));
         */
     
 break;
@@ -330,6 +445,10 @@ case 32:
         /*php
             this.$ = this->cellRangeValue($$[$0-2], $$[$0]);
         */
+        
+        /*cs
+            this.$ = Spreadsheet.CellValue(Location.Parse($$[$0-2].Text), Location.Parse($$[$0].Text));
+        */
     
 break;
 case 33:
@@ -337,6 +456,10 @@ case 33:
 			this.$ = yy.handler.remoteCellValue.call(yy.obj, $$[$0-2], $$[$0]);
         /*php
             this.$ = this->remoteCellValue($$[$0-2], $$[$0]);
+        */
+        
+        /*cs
+            this.$ = Spreadsheet.CellValue(Location.ParseRemote($$[$0-2].Text, $$[$0].Text));
         */
     
 break;
@@ -347,6 +470,10 @@ case 34:
         /*php
             this.$ = this->remoteCellRangeValue($$[$0-4], $$[$0-2], $$[$0]);
         */
+        
+        /*cs
+            this.$ = Spreadsheet.CellValue(Location.ParseRemote($$[$0-4].Text, $$[$0-2].Text), Location.ParseRemote($$[$0-4].Text, $$[$0].Text));
+        */
     
 break;
 case 35:
@@ -355,6 +482,10 @@ case 35:
 
         /*php
             this.$ = array($$[$0]);
+        */
+        
+        /*cs
+            this.$ = $$[$0];
         */
     
 break;
@@ -367,6 +498,12 @@ case 36:
             $$[$0-2][] = $$[$0];
             this.$ = $$[$0-2];
         */
+        
+        /*cs
+            $$[$0-2].Push($$[$0]);
+            this.$ = $$[$0-2];
+        */
+
     
 break;
 case 37:
@@ -378,10 +515,20 @@ case 37:
 			$$[$0-2][] = $$[$0];
 			this.$ = $$[$0-2];
         */
+        
+        /*cs
+            $$[$0-2].Push($$[$0]);
+            this.$ = $$[$0-2];
+        */
     
 break;
 case 38:
-        this.$ = [$$[$0]];
+	    //js|php
+            this.$ = [$$[$0]];
+        
+        /*cs
+            this.$ = $$[$0];
+        */
     
 break;
 case 39:
@@ -393,10 +540,21 @@ case 39:
             this.$ = (is_array($$[$0-2]) ? $$[$0-2] : array());
             this.$[] = $$[$0];
         */
+        
+        /*cs
+            $$[$0-2].Push($$[$0]);
+            this.$ = $$[$0-2];
+        */
     
 break;
 case 40:
-        this.$ = $$[$0];
+        //js|php
+            this.$ = $$[$0];
+
+        /*cs
+            $$[$0].ToDouble();
+            this.$ = $$[$0];
+        */
     
 break;
 case 41:
@@ -406,18 +564,51 @@ case 41:
         /*php
             this.$ = $$[$0-2] . '.' . $$[$0];
         */
+        
+        /*cs
+            $$[$0-2].Text += "." + $$[$0].Text;
+            $$[$0-2].ToDouble();
+            this.$ = $$[$0-2];
+        */
     
 break;
 case 42:
-        this.$ = $$[$0-1] * 0.01;
+        //js|php
+	        this.$ = $$[$0-1] * 0.01;
+	
+        /*cs
+            $$[$0-1].Set($$[$0-1].ToDouble() * 0.01);
+            this.$ = $$[$0-1];
+        */
+        
     
 break;
 case 43:
-        this.$ = $$[$0-2] + $$[$0-1] + $$[$0];
+        //js
+		    this.$ = $$[$0-2] + $$[$0-1] + $$[$0];
+
+        /*php
+            this.$ = $$[$0-2] . $$[$0-1] . $$[$0];
+        */
+
+        /*cs
+            $$[$0-2].Set($$[$0-2].Text + $$[$0-1].Text + $$[$0].Text);
+            this.$ = $$[$0-2];
+        */
     
 break;
 case 44:
-        this.$ = $$[$0-2] + $$[$0-1] + $$[$0];
+        //js
+		    this.$ = $$[$0-2] + $$[$0-1] + $$[$0];
+	
+        /*php
+            this.$ = $$[$0-2] . $$[$0-1] . $$[$0];
+        */
+
+        /*cs
+            $$[$0-3].Set($$[$0-3].Text + $$[$0-2].Text + $$[$0-1].Text + $$[$0].Text);
+            this.$ = $$[$0-3];
+        */
     
 break;
 }
@@ -676,7 +867,8 @@ if (typeof(window) !== 'undefined') {
 		newParser.yy.handler = handler;
 		return newParser;
 	};
-}/* generated by jison-lex 0.2.1 */
+}
+/* generated by jison-lex 0.2.1 */
 var lexer = (function(){
 var lexer = {
 
@@ -1017,27 +1209,49 @@ break;
 case 5:return 8;
 break;
 case 6:
-	if (yy.obj.type == 'cell') return 30;//js
-	return 34;//js
+	//js
+		if (yy.obj.type == 'cell') return 30;
+		return 34;
 
-	//php if ($this->type == 'cell') return 30;
-	//php return 34;
+	/*php
+		if ($this->type == 'cell') return 30;
+		return 34;
+	*/
+
+	/*cs
+		return 30;
+	*/
 
 break;
 case 7:
-	if (yy.obj.type == 'cell') return 27;//js
-	return 34;//js
+	//js
+		if (yy.obj.type == 'cell') return 27;
+		return 34;
 
-	//php if ($this->type == 'cell') return 27;
-    //php return 34;
+	/*php
+		if ($this->type == 'cell') return 27;
+		return 34;
+	*/
+
+	/*cs
+		return 27;
+	*/
 
 break;
 case 8:
-	if (yy.obj.type == 'cell') return 29;//js
-	return 34;//js
+	//js
+		if (yy.obj.type == 'cell') return 29;
+		return 34;
 
-	//php if ($this->type == 'cell') return 29;
-    //php return 34;
+	/*php
+		if ($this->type == 'cell') return 29;
+		return 34;
+	*/
+
+	
+	/*cs
+		return 29;
+	*/
 
 break;
 case 9:return 24;
