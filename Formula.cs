@@ -1873,7 +1873,7 @@ namespace Jison
 
 		}
 		
-		public ParserValue ParserPerformAction(ref ParserValue thisS, ref ParserValue yy, ref int yystate, ref JList<ParserValue> ss)
+		public Sheet.Expression ParserPerformAction(ref Sheet.Expression thisS, ref Sheet.Expression yy, ref int yystate, ref JList<Sheet.Expression> ss)
 		{
 			var so = ss.Count - 1;
 /* this == yyval */
@@ -2240,7 +2240,7 @@ break;
 			throw new InvalidOperationException(error);
 		}
 
-		public ParserValue Parse(string input)
+		public Sheet.Expression Parse(string input)
 		{
 			if (Table == null) {
 				throw new Exception("Empty table");
@@ -2249,13 +2249,13 @@ break;
 			{
 				new ParserCachedAction(new ParserAction(0, Table[0]))
 			};
-			var vstack = new JList<ParserValue>
+			var vstack = new JList<Sheet.Expression>
 			{
-				new ParserValue()
+				new Sheet.Expression()
 			};
-			var yy = new ParserValue();
-			var _yy = new ParserValue();
-			var v = new ParserValue();
+			var yy = new Sheet.Expression();
+			var _yy = new Sheet.Expression();
+			var v = new Sheet.Expression();
 			int recovering = 0;
 			ParserSymbol symbol = null;
 			ParserAction action = null;
@@ -2369,7 +2369,7 @@ break;
 
 				        if (_yy == null)
 				        {
-							vstack.Push(new ParserValue());
+							vstack.Push(new Sheet.Expression());
 				        }
 				        else
 				        {
@@ -2393,7 +2393,7 @@ break;
 
 		/* Jison generated lexer */
 		public ParserSymbol Eof = new ParserSymbol("Eof", 1);
-		public ParserValue Yy = new ParserValue();
+		public Sheet.Expression Yy = new Sheet.Expression();
 		public string Match = "";
 		public string Matched = "";
 		public Stack<string> ConditionStack;

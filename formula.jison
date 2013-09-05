@@ -1,4 +1,5 @@
-//option parserClass:Formula
+//option class:Formula
+//option parserValue:Sheet.Expression
 /* description: Parses end evaluates mathematical expressions. */
 /* lexical grammar */
 %lex
