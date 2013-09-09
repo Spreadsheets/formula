@@ -1,5 +1,6 @@
 //option class:Formula
-//option parserValue:Sheet.Expression
+//option parserValue:Expression
+//option using:Sheet
 /* description: Parses end evaluates mathematical expressions. */
 /* lexical grammar */
 %lex
@@ -240,7 +241,8 @@ expression
         */
     }
 	| expression '<' '>' expression {
-        $$ = ($1) != ($4);
+        //js|php
+            $$ = ($1) != ($4);
 
         //js
 			if (isNaN($$)) {
@@ -253,7 +255,8 @@ expression
         */
     }
 	| expression NOT expression {
-        $$ = $1 != $3;
+        //js|php
+            $$ = $1 != $3;
         
         /*cs
             $1.Set($1.Text != $3.Text);

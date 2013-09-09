@@ -2,7 +2,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
-
+using Sheet;
 
 namespace Jison
 {
@@ -1873,7 +1873,7 @@ namespace Jison
 
 		}
 		
-		public Sheet.Expression ParserPerformAction(ref Sheet.Expression thisS, ref Sheet.Expression yy, ref int yystate, ref JList<Sheet.Expression> ss)
+		public Expression ParserPerformAction(ref Expression thisS, ref Expression yy, ref int yystate, ref JList<Expression> ss)
 		{
 			var so = ss.Count - 1;
 /* this == yyval */
@@ -1973,8 +1973,6 @@ case 12:
     
 break;
 case 13:
-        thisS = (ss[so-3]) != (ss[so]);
-
         
             ss[so-3].Set(ss[so-3].Text != ss[so].Text);
             thisS = ss[so-3];
@@ -1982,8 +1980,6 @@ case 13:
     
 break;
 case 14:
-        thisS = ss[so-2] != ss[so];
-        
         
             ss[so-2].Set(ss[so-2].Text != ss[so].Text);
             thisS = ss[so-2];
@@ -2240,7 +2236,7 @@ break;
 			throw new InvalidOperationException(error);
 		}
 
-		public Sheet.Expression Parse(string input)
+		public Expression Parse(string input)
 		{
 			if (Table == null) {
 				throw new Exception("Empty table");
@@ -2249,13 +2245,13 @@ break;
 			{
 				new ParserCachedAction(new ParserAction(0, Table[0]))
 			};
-			var vstack = new JList<Sheet.Expression>
+			var vstack = new JList<Expression>
 			{
-				new Sheet.Expression()
+				new Expression()
 			};
-			var yy = new Sheet.Expression();
-			var _yy = new Sheet.Expression();
-			var v = new Sheet.Expression();
+			var yy = new Expression();
+			var _yy = new Expression();
+			var v = new Expression();
 			int recovering = 0;
 			ParserSymbol symbol = null;
 			ParserAction action = null;
@@ -2369,7 +2365,7 @@ break;
 
 				        if (_yy == null)
 				        {
-							vstack.Push(new Sheet.Expression());
+							vstack.Push(new Expression());
 				        }
 				        else
 				        {
@@ -2393,7 +2389,7 @@ break;
 
 		/* Jison generated lexer */
 		public ParserSymbol Eof = new ParserSymbol("Eof", 1);
-		public Sheet.Expression Yy = new Sheet.Expression();
+		public Expression Yy = new Expression();
 		public string Match = "";
 		public string Matched = "";
 		public Stack<string> ConditionStack;

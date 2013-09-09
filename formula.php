@@ -6,7 +6,7 @@ use Exception;
 
 
 
-class formula
+class Formula
 {
     public $symbols = array();
     public $terminals = array();
@@ -1997,14 +1997,10 @@ case 12:
     
 break;
 case 13:
-        $thisS = ($s[$o-3]) != ($s[$o]);
-
         
     
 break;
 case 14:
-        $thisS = $s[$o-2] != $s[$o];
-        
         
     
 break;
@@ -2348,7 +2344,7 @@ break;
 
                     if (is_null($_yy))
                     {
-                        $vstack[] = new ParserValue();
+                        $vstack[] = new Expression();
                     }
                     else
                     {
@@ -2398,7 +2394,7 @@ break;
     {
         $this->input = $input;
         $this->more = $this->less = $this->done = false;
-        $this->yy = new ParserValue();
+        $this->yy = new Expression();
         $this->conditionStack = array('INITIAL');
         $this->conditionStackCount = 1;
 
