@@ -108,6 +108,9 @@ expressions
     : expression EOF {
         return $1;
     }
+    | expression {
+        return $1;
+    }
 ;
 
 expression
@@ -116,7 +119,7 @@ expression
 		    $$ = yy.handler.variable.apply(yy.obj, $1);
 
         /*php
-            $$ = $this->variable($1);
+            $$ = $this->variable($1->text);
         */
 		
         /*cs
@@ -139,7 +142,7 @@ expression
             $$ = yy.handler.number($1);
 
         /*php
-            $$ = $1 * 1;
+            $$ = $1->text * 1;
         */
 
 		/*cs
@@ -150,8 +153,9 @@ expression
 	| STRING {
         //js
             $$ = $1.substring(1, $1.length - 1);
+
         /*php
-	        $$ = substr($1, 1, -1);
+	        $$ = substr($1->text, 1, -1);
         */
 
 		/*cs
@@ -164,7 +168,7 @@ expression
             $$ = $1.toString() + $3.toString();
 
         /*php
-            $$ = $1 . '' . $3;
+            $$ = $1->text . $3->text;
         */
         
         /*cs
@@ -177,7 +181,7 @@ expression
             $$ = yy.handler.callFunction.call(yy.obj, 'EQUAL', [$1, $3]);
 
         /*php
-            $$ = $1 == $3;
+            $$ = $1->text == $3->text;
         */
 
 		/*cs
@@ -190,10 +194,10 @@ expression
 			$$ = yy.handler.performMath('+', $1, $3);
 
         /*php
-			if (is_numeric($1) && is_numeric($3)) {
-			   $$ = $1 + $3;
+			if (is_numeric($1->text) && is_numeric($3->text)) {
+			   $$ = $1->text + $3->text;
 			} else {
-			   $$ = $1 . $3;
+			   $$ = $1->text . $3->text;
 			}
         */
 
@@ -212,14 +216,17 @@ expression
 	| '(' expression ')' {
 	    //js
 	        $$ = yy.handler.number($2);
-        //
+
+        /*php
+            $$ = $2->text;
+        */
 	}
 	| expression '<' '=' expression {
         //js
             $$ = yy.handler.callFunction.call(yy.obj, 'LESS_EQUAL', [$1, $3]);
 
         /*php
-            $$ = ($1 * 1) <= ($4 * 1);
+            $$ = ($1->text * 1) <= ($4->text * 1);
         */
         
         /*cs
@@ -232,7 +239,7 @@ expression
             $$ = yy.handler.callFunction.call(yy.obj, 'GREATER_EQUAL', [$1, $3]);
 
         /*php
-            $$ = ($1 * 1) >= ($4 * 1);
+            $$ = ($1->text * 1) >= ($4->text * 1);
         */
         
         /*cs
@@ -241,13 +248,14 @@ expression
         */
     }
 	| expression '<' '>' expression {
-        //js|php
-            $$ = ($1) != ($4);
-
         //js
+            $$ = ($1) != ($4);
 			if (isNaN($$)) {
 			    $$ = 0;
 			}
+	    /*php
+	        $$ = ($1->text != $4->text);
+	    */
         
         /*cs
             $1.Set($1.Text != $4.Text);
@@ -255,9 +263,12 @@ expression
         */
     }
 	| expression NOT expression {
-        //js|php
-            $$ = $1 != $3;
-        
+        //js
+
+        /*php
+            $$ = ($1->text != $3->text);
+        */
+
         /*cs
             $1.Set($1.Text != $3.Text);
             $$ = $1;
@@ -268,7 +279,7 @@ expression
 			$$ = yy.handler.callFunction.call(yy.obj, 'GREATER', [$1, $3]);
 
 		/*php
-		    $$ = ($1 * 1) > ($3 * 1);
+		    $$ = ($1->text * 1) > ($3->text * 1);
         */
         
         /*cs
@@ -281,7 +292,7 @@ expression
             $$ = yy.handler.callFunction.call(yy.obj, 'LESS', [$1, $3]);
 
         /*php
-            $$ = ($1 * 1) < ($3 * 1);
+            $$ = ($1->text * 1) < ($3->text * 1);
         */
         
         /*cs
@@ -294,7 +305,7 @@ expression
             $$ = yy.handler.performMath('-', $1, $3);
 
         /*php
-            $$ = ($1 * 1) - ($3 * 1);
+            $$ = ($1->text * 1) - ($3->text * 1);
         */
         
         /*cs
@@ -307,7 +318,7 @@ expression
             $$ = yy.handler.performMath('*', $1, $3);
 
         /*php
-            $$ = ($1 * 1) * ($3 * 1);
+            $$ = ($1->text * 1) * ($3->text * 1);
         */
         
         /*cs
@@ -320,7 +331,7 @@ expression
             $$ = yy.handler.performMath('/', $1, $3);
 
         /*php
-            $$ = ($1 * 1) / ($3 * 1);
+            $$ = ($1->text * 1) / ($3->text * 1);
         */
         
         /*cs
@@ -336,7 +347,7 @@ expression
             $$ = yy.handler.performMath('^', $1, $3);
 
         /*php
-            $$ = pow(($1 * 1), ($3 * 1));
+            $$ = pow(($1->text * 1), ($3->text * 1));
         */
         
         /*cs
@@ -353,7 +364,7 @@ expression
 			}
 
 		/*php
-		    $$ = $1 * 1;
+		    $$ = $1->text * 1;
 		*/
 		
 		/*cs
@@ -370,7 +381,7 @@ expression
 			}
 
         /*php
-            $$ = $1 * 1;
+            $$ = $1->text * 1;
         */
         
         /*cs
@@ -384,7 +395,7 @@ expression
 			$$ = yy.handler.callFunction.call(yy.obj, $1, '');
 
 		/*php
-		    $$ = $this->callFunction($1);
+		    $$ = $this->callFunction($1->text);
         */
         
         /*cs
@@ -396,7 +407,7 @@ expression
 			$$ = yy.handler.callFunction.call(yy.obj, $1, $3);
 
         /*php
-            $$ = $this->callFunction($1, $3);
+            $$ = $this->callFunction($1->text, $3->text);
         */
         
         /*cs
@@ -413,7 +424,7 @@ cell :
 			$$ = yy.handler.fixedCellValue.call(yy.obj, $1);
 
         /*php
-            $$ = $this->fixedCellValue($1);
+            $$ = $this->fixedCellValue($1->text);
         */
         
         /*cs
@@ -425,7 +436,7 @@ cell :
            $$ = yy.handler.fixedCellRangeValue.call(yy.obj, $1, $3);
 
 	    /*php
-	        $$ = $this->fixedCellRangeValue($1, $3);
+	        $$ = $this->fixedCellRangeValue($1->text, $3->text);
         */
         
         /*cs
@@ -435,8 +446,9 @@ cell :
 	| CELL {
 	    //js
 			$$ = yy.handler.cellValue.call(yy.obj, $1);
+
         /*php
-            $$ = $this->cellValue($1);
+            $$ = $this->cellValue($1->text);
         */
         
         /*cs
@@ -448,7 +460,7 @@ cell :
 			$$ = yy.handler.cellRangeValue.call(yy.obj, $1, $3);
 
         /*php
-            $$ = $this->cellRangeValue($1, $3);
+            $$ = $this->cellRangeValue($1->text, $3->text);
         */
         
         /*cs
@@ -458,8 +470,9 @@ cell :
 	| SHEET '!' CELL {
 	    //js
 			$$ = yy.handler.remoteCellValue.call(yy.obj, $1, $3);
+
         /*php
-            $$ = $this->remoteCellValue($1, $3);
+            $$ = $this->remoteCellValue($1->text, $3->text);
         */
         
         /*cs
@@ -471,7 +484,7 @@ cell :
             $$ = yy.handler.remoteCellRangeValue.call(yy.obj, $1, $3, $5);
 
         /*php
-            $$ = $this->remoteCellRangeValue($1, $3, $5);
+            $$ = $this->remoteCellRangeValue($1->text, $3->text, $5->text);
         */
         
         /*cs
@@ -486,7 +499,7 @@ expseq :
             $$ = [$1];
 
         /*php
-            $$ = array($1);
+            $$ = array($1->text);
         */
         
         /*cs
@@ -499,8 +512,7 @@ expseq :
 	        $$ = $1;
 
         /*php
-            $1[] = $3;
-            $$ = $1;
+            $1->text[] = $3->text;
         */
         
         /*cs
@@ -515,8 +527,7 @@ expseq :
 	        $$ = $1;
 
         /*php
-			$1[] = $3;
-			$$ = $1;
+			$1->text[] = $3->text;
         */
         
         /*cs
@@ -529,9 +540,13 @@ expseq :
 
 variableSequence :
 	VARIABLE {
-	    //js|php
+	    //js
             $$ = [$1];
-        
+
+        /*php
+            $$ = array($1->text);
+        */
+
         /*cs
             $$ = $1;
         */
@@ -542,8 +557,8 @@ variableSequence :
             $$.push($3);
 
         /*php
-            $$ = (is_array($1) ? $1 : array());
-            $$[] = $3;
+            $$ = (is_array($1->text) ? $1->text : array());
+            $$[] = $3->text;
         */
         
         /*cs
@@ -555,8 +570,12 @@ variableSequence :
 
 number :
 	NUMBER {
-        //js|php
+        //js
             $$ = $1;
+
+        /*php
+            $$ = $1->text * 1;
+        */
 
         /*cs
             $1.ToDouble();
@@ -568,7 +587,7 @@ number :
             $$ = ($1 + '.' + $3) * 1;
 
         /*php
-            $$ = $1 . '.' . $3;
+            $$ = ($1->text . '.' . $3->text) * 1;
         */
         
         /*cs
@@ -578,9 +597,13 @@ number :
         */
     }
 	| number '%' {
-        //js|php
+        //js
 	        $$ = $1 * 0.01;
-	
+
+	    /*php
+	        $$ = $1->text * 0.01;
+	    */
+
         /*cs
             $1.Set($1.ToDouble() * 0.01);
             $$ = $1;
@@ -595,7 +618,7 @@ error :
 		    $$ = $1 + $2 + $3;
 
         /*php
-            $$ = $1 . $2 . $3;
+            $$ = $1->text . $2->text . $3->text;
         */
 
         /*cs
@@ -608,7 +631,7 @@ error :
 		    $$ = $2 + $3 + $4;
 	
         /*php
-            $$ = $2 . $3 . $4;
+            $$ = $2->text . $3->text . $4->text;
         */
 
         /*cs
